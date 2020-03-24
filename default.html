@@ -1,0 +1,1583 @@
+<!DOCTYPE html>
+<html lang="TR">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+    <!-- BROWSER HEADER THEME -->
+    <meta name="theme-color" content="#4f5769">
+    <title>One HR</title>
+    <link href="css/style-min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,300i,400,400i,500,500i,700,700i&amp;subset=latin-ext" rel="stylesheet">
+    <script src="js/js-min.js"></script>
+</head>
+
+<body lang="TR">
+
+    <style>
+        .lds-dual-ring {
+            display: inline-block;
+            width: 64px;
+            height: 64px;
+            }
+            .lds-dual-ring:after {
+            content: " ";
+            display: block;
+            width: 46px;
+            height: 46px;
+            margin: 1px;
+            border-radius: 50%;
+            border: 5px solid #fff;
+            border-color: #fff transparent #fff transparent;
+            animation: lds-dual-ring 1.2s linear infinite;
+            }
+            @keyframes lds-dual-ring {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+            }
+        .btn-primary {
+            color: #fff;
+            background-color: #52C6B4;
+            border-color: #52C6B4;
+            }
+            .btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+            background-color: #3F998B !important;
+            border-color: #3F998B !important;
+        }    
+
+        .popover-custom{
+            position: relative;
+            border-radius: 5px;
+            background: #fff;
+            box-shadow: 0 6px 100px 0 rgba(0,0,0,.35)!important;
+        }
+
+        .popover-custom .close{
+            width: 25px;
+            height: 24px;
+            background: #ea6a5a;
+            right: -12px;
+            position: absolute;
+            top: -13px;
+            opacity: 1;
+            color: white;
+            font-size: 14px;
+            border-radius: 38px;
+            padding: 3px;
+        }
+
+        .popover-custom .container{
+            width: 100%;
+            padding: 10px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .popover-custom .title{
+            font-size: 18px;
+            font-weight: normal;
+            
+        }
+
+        #feedback .popover-loading{
+            display: none;
+            position: absolute; width: 100%; 
+            height: 100%; left: 0; top:0; background: #000; opacity: 0.6;
+            z-index: 1;
+        }
+
+        #feedback .popover-loading .popover-loading-img{
+            position: absolute;
+            left: 0;
+            right: 0;
+            margin: auto;
+            top: 0;
+            bottom: 0;
+        }
+
+
+        #feedback .shortcut{position: fixed; bottom: 20px; left: 20px; z-index: 1;}
+        #feedback .shortcut button{
+            width: 83px;
+            height: 83px;
+            border: none;
+            background-color: #FFC96A;
+            color:#fff;
+            font-size: 55px;
+            border-radius: 40px;
+           text-align: center;
+           transition: .2s;
+
+          
+        }
+
+        
+
+          #feedback .shortcut button:hover{
+              box-shadow: 0px 7px 15px -2px #A98A56
+          }
+
+        #feedback .shortcut button:active{
+            background-color: #F3A722;
+        }
+
+        #feedback .shortcut .shortcut-label{
+            background-color: #FFC96A;
+            border-radius: 5px;
+            margin-top: 5px;
+            color: #fff;
+            padding: 3px 5px;
+            margin-left: -2px;
+        }
+
+        #feedback .popover-custom{
+            bottom: 140px;
+            left: 20px;
+            z-index: 99999;
+            width: 300px;
+            height: 250px;
+            position: fixed;
+        }
+
+        #feedback .popover-custom .container{height: 250px;}
+
+        #feedback .popover-custom .container .options button{
+            background: none;
+            border: none
+        }
+        #feedback .popover-custom .container .options .icon{
+            width: 35px;
+            height: 35px;
+            -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(100%);
+        }
+
+         #feedback .popover-custom .container .options .icon:hover, 
+         #feedback .popover-custom .container .options .icon:active,
+         #feedback .popover-custom .container .options .active .icon{
+            -webkit-filter: grayscale(0%); /* Safari 6.0 - 9.0 */
+            filter: grayscale(0%);
+         }
+
+        #feedback .feedback-container{
+            width: 107%;
+        }
+
+        #feedback .title-emoji-container{
+            flex-direction: column;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+         #feedback .title-emoji-container .title{
+             margin-bottom: 10px
+         }
+
+        #feedback #feedback-form textarea{
+            background: #eaeaeb !important;
+            height: 60px;
+            border-radius: 0
+        }
+
+        #feedback #feedback-form .btn {margin: 10px}
+        #feedback #feedback-form .result {margin: 10px}
+        
+
+         @media only screen and (max-width: 480px) {
+            #feedback .shortcut button{
+                width: 55px;
+                height: 55px;
+                font-size: 38px;
+            }
+
+            #feedback .shortcut .shortcut-label{
+                font-size: 11px!important;
+                padding: 2px 3px!important;
+                margin-left: -7px!important; 
+            }
+
+            #feedback .popover-custom{
+                bottom: 110px!important
+            }
+        }
+
+    </style>
+
+    <script>
+
+        $(window).bind('load',function(){
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+
+        $(document).ready(function(){
+           
+
+            // $('body').on('click', function(e){
+            //     console.log(e.target);
+            //     if(e.target.nodeName !== 'path' || e.target.id !== 'btn-feedback-shortcut' || e.target.id !== 'ic-feedback') {
+            //         $('#feedback-popover').hide();
+            //     }
+            // });
+
+            const feedbackIcons = [
+                {id: 1, title: 'Çok Kötü', icon: 'disappointed'},
+                {id: 2, title: 'Kötü', icon: 'sad'},
+                {id: 3, title: 'Fikrim Yok', icon: 'thinking'},
+                {id: 4, title: 'Güzel', icon: 'happy'},
+                {id: 5, title: 'Çok Güzel', icon: 'shocked'}
+            ]
+
+            $.map(feedbackIcons, function(item, index){
+                const buttonItem = '<button data-toggle="tooltip" title="'+item.title+'!" data-id="'+ item.id 
+                +'" class="btn-select-feedback"><img class="icon" src="images/emoji/'+ item.icon +'.svg"/></button>';
+                $('#feedback-popover .options').append(buttonItem);
+            })
+           
+            $('#btn-feedback-shortcut, #feedback .close').on('click', function() {
+                $('#feedback-popover').toggle(200);
+            });
+
+            $('.btn-select-feedback').on('click', function(){
+                $('.btn-select-feedback').removeClass('active');
+                $('#FEEDBACK_SELECTED').val($(this).data('id'));
+                $('#feedback-form').show();
+                $(this).addClass('active');
+            });
+
+            $('#btn-send-feedback').on('click', function(){
+                sendFeedback();
+            });
+
+        });
+
+        function clearFeedBack(status, msg){
+            $('.popover-loading').fadeOut(200);
+
+            if(status === 'fail'){
+                $('.feedback-container .result').show().addClass('text-danger').html(msg);
+            }else{
+                $('.feedback-container').hide();
+                $('.success-container').show(function(){
+                    $('.success-container .result').html( (msg? msg : 'Teşekkür ederiz :)'));
+                });
+
+                setTimeout(function(){
+                    $('#feedback-popover').hide(300);
+                    $('#FEEDBACK_SELECTED').val('');
+                    $('#FEEDBACK_TEXT').val('');
+            },1500);
+            }
+            
+           
+        }
+
+        function sendFeedback(){
+            $('.popover-loading').fadeIn(200);
+            var selectedFeedback = $('#FEEDBACK_SELECTED').val();
+            var feedbackText = $('#FEEDBACK_TEXT').val();
+            $.ajax({
+                url: '',
+                data: {selectedFeedback: selectedFeedback, feedbackText: feedbackText},
+                success: function(data){
+                    clearFeedBack('success', data.msg);
+                },
+                error: function(){
+                    clearFeedBack('fail', 'Hata oluştu');
+                }
+             }
+            )
+            .done(function(){
+            
+            }).fail(function(){
+                clearFeedBack('fail', 'Hata oluştu');
+            });
+        }
+
+        
+       
+    </script>
+
+
+    <div id="feedback">
+        
+        <div class='shortcut'>
+            <button id='btn-feedback-shortcut'>
+                <i id='ic-feedback' class="far fa-smile"></i>
+            </button>
+            <div class="shortcut-label">Geri Bildirim</div>
+        </div>
+        
+        <div id='feedback-popover' class="popover-custom" style="display: none">
+            <div class="popover-loading"><div class="popover-loading-img lds-dual-ring"></div></div>
+            <button class="close"><i class="fas fa-times"></i></button>
+            
+            <div class="container">
+                <div class='feedback-container'>
+                    
+                    <div class='title-emoji-container'>
+                        <div class="title">Bizi değerlendirmek istermisiniz?</div>
+                        <div class="options">
+                            <!--generated by javascript-->
+                        </div>
+                     </div>
+                    
+                    <div id='feedback-form' class="form-container" style="display: none">
+                        <input type="hidden" id="FEEDBACK_SELECTED"/>
+                        <textarea id="FEEDBACK_TEXT" class="form-control" style="resize: none;"></textarea>
+                        <div class='result pull-left'></div>
+                        <button id='btn-send-feedback' class="btn btn-primary pull-right">Gönder</button>
+                    </div>
+                </div><!--feedback-container-->
+                <div class="success-container">
+                    <div class="result"></div>
+                </div>
+
+
+
+            </div><!--container-->
+        </div>
+    </div><!--feedback-->
+
+    <header class="animated fadeInDown">
+        <div class="container">
+            <div class="logo"></div>
+            <div class="search-container">
+                <div class="search-area">
+                    <input type="text" class="search-input" title="" placeholder="Arama yapın.." />
+                    <div class="line-input-footer"></div>
+                    <i class="fal fa-search"></i>
+                </div>
+            </div>
+            <div class="search-result-box none animated fadeIn">
+                <a href="">Eğitim</a>
+                <a href="">İç Eğitmenlik</a>
+                <a href="">Koç Sistem Akademi Portal</a>
+                <a href="">Eğitmenlik Hakkında</a>
+            </div>
+            <div class="header-nav">
+                <ul class="navbar-nav">
+                    <li class="nav-item dropdown">
+                        <!--Count yoksa .no-count class'ı eklenir-->
+                        <a class="nav-link dropdown-toggle no-count" href="#" id="navmenu-1" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" data-count="8">
+                            <i class="fal fa-hourglass-start"></i>
+                            <span>Bekleyen İşlerim</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navmenu-1">
+                            <a class="dropdown-item" href="#" data-count="2">Action</a>
+                            <a class="dropdown-item" href="#" data-count="5">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-count="8">Something else here</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navmenu-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            data-count="3">
+                            <i class="fal fa-bullhorn"></i>
+                            <span>Taleplerim</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navmenu-2">
+                            <a class="dropdown-item" href="#" data-count="2">Action</a>
+                            <a class="dropdown-item" href="#" data-count="2">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" data-count="2">Something else here</a>
+                        </div>
+                    </li>
+                    <li>
+                        <a href="javascript:;" class="sidebar-button">
+                            <i class="fal fa-bars"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="popup">
+            <div class="popup-container">
+                <div class="close-popup">
+                    <i class="fal fa-times"></i>
+                </div>
+                <div class="profile-edit-box">
+                    <div class="avatar">
+                        <img src="images/person.png" alt="">
+                    </div>
+                    <div class="person-info">
+                        <span class="person-name">
+                            Mehmet Okan Özcan
+                        </span>
+                        <span class="person-number">
+                            Sicil No: 02484516
+                        </span>
+                    </div>
+                    <div class="edit-button-area">
+                        <a href="">
+                            Fotoğrafı Düzenle
+                        </a>
+                    </div>
+                </div>
+                <div class="multi-menu">
+                    <div class="panel-group" id="accordion_mobile" role="tablist" aria-multiselectable="true">
+
+                        <div class="menu-tab">
+                            <div class="panel-heading">
+                                <a class="collapsed" href="#">
+                                    <i class="fal fa-user-circle"></i>
+                                    Kim Kimdir ?
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="menu-tab">
+                            <div class="panel-heading" role="tab" id="headingOne_mobile">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_mobile" href="#collapseOne_mobile" aria-expanded="true"
+                                    aria-controls="collapseOne_mobile">
+                                    <i class="fas fa-caret-right"></i>
+                                    İK
+                                </a>
+                            </div>
+                            <div id="collapseOne_mobile" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne_mobile">
+                                <ul>
+                                    <li>
+                                        <a href="">Çalışma Saatleri</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Yeni başlayanlar için</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Eğitim</a>
+                                    </li>
+                                    <li>
+                                        <a href="">İnsan kaynakları iş ortağım</a>
+                                    </li>
+                                    <li>
+                                        <a href="">İşe alım ve kariyer yönetimi</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Ücret yönetimi ve bordro</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Ek Menfaatler</a>
+                                    </li>
+                                    <li>
+                                        <a href="">İletişim ve sosyal faaliyetler</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="menu-tab">
+                            <div class="panel-heading" role="tab" id="headingTwo_mobile">
+                                <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_mobile" href="#collapseTwo_mobile" aria-expanded="false"
+                                    aria-controls="collapseTwo_mobile">
+                                    <i class="fas fa-caret-right"></i>
+                                    Kurumsal
+                                </a>
+                            </div>
+                            <div id="collapseTwo_mobile" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo_mobile">
+                                <ul>
+                                    <li>
+                                        <a href="">Çalışma Saatleri</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Yeni başlayanlar için</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Eğitim</a>
+                                    </li>
+                                    <li>
+                                        <a href="">İnsan kaynakları iş ortağım</a>
+                                    </li>
+                                    <li>
+                                        <a href="">İşe alım ve kariyer yönetimi</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Ücret yönetimi ve bordro</a>
+                                    </li>
+                                    <li>
+                                        <a href="">Ek Menfaatler</a>
+                                    </li>
+                                    <li>
+                                        <a href="">İletişim ve sosyal faaliyetler</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="menu-tab">
+                            <div class="panel-heading">
+                                <a class="collapsed" href="#">
+                                    <i class="fal fa-id-card"></i>
+                                    Self Servis
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="menu-tab">
+                            <div class="panel-heading">
+                                <a class="collapsed" href="#">
+                                    <i class="fal fa-folder-open"></i>
+                                    Arşiv
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div><!--popup-->
+    </header>
+    <section>
+        <div class="container page-container">
+            <aside class="page-left hidden-sm hidden-xs">
+                <div class="inner">
+                    <!--Profile-->
+                    <div class="profile-edit-box">
+                        <div class="avatar">
+                            <img src="images/person.png" alt="">
+                        </div>
+                        <div class="person-info">
+                            <span class="person-name">
+                                Mehmet Okan Özcan
+                            </span>
+                            <span class="person-number">
+                                Sicil No: 02484516
+                            </span>
+                        </div>
+                        <div class="edit-button-area">
+                            <a href="">
+                                Fotoğrafı Düzenle
+                            </a>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!--Profile-->
+
+                    <!--Left Menu-->
+                    <div class="multi-menu">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                            <div class="menu-tab">
+                                <div class="panel-heading">
+                                    <a class="collapsed" href="#">
+                                        <i class="fal fa-user-circle"></i>
+                                        Kim Kimdir ?
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="menu-tab">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                                        aria-controls="collapseOne">
+                                        <i class="fas fa-caret-right"></i>
+                                        İK
+                                    </a>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                    <ul>
+                                        <li>
+                                            <a href="">Çalışma Saatleri</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Yeni başlayanlar için</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Eğitim</a>
+                                        </li>
+                                        <li>
+                                            <a href="">İnsan kaynakları iş ortağım</a>
+                                        </li>
+                                        <li>
+                                            <a href="">İşe alım ve kariyer yönetimi</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Ücret yönetimi ve bordro</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Ek Menfaatler</a>
+                                        </li>
+                                        <li>
+                                            <a href="">İletişim ve sosyal faaliyetler</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="menu-tab">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false"
+                                        aria-controls="collapseTwo">
+                                        <i class="fas fa-caret-right"></i>
+                                        Kurumsal
+                                    </a>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <ul>
+                                        <li>
+                                            <a href="">Çalışma Saatleri</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Yeni başlayanlar için</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Eğitim</a>
+                                        </li>
+                                        <li>
+                                            <a href="">İnsan kaynakları iş ortağım</a>
+                                        </li>
+                                        <li>
+                                            <a href="">İşe alım ve kariyer yönetimi</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Ücret yönetimi ve bordro</a>
+                                        </li>
+                                        <li>
+                                            <a href="">Ek Menfaatler</a>
+                                        </li>
+                                        <li>
+                                            <a href="">İletişim ve sosyal faaliyetler</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="menu-tab">
+                                <div class="panel-heading">
+                                    <a class="collapsed" href="#">
+                                        <i class="fal fa-id-card"></i>
+                                        Self Servis
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="menu-tab">
+                                <div class="panel-heading">
+                                    <a class="collapsed" href="#">
+                                        <i class="fal fa-folder-open"></i>
+                                        Arşiv
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!--Left Menu-->
+                </div>
+            </aside>
+            <main>
+                <!-- Thanksgiving Module -->
+                <div id="thanksgiving-module" class="row thanksgiving-module">
+                    <div class="col-lg-12"><div class="page-title">TEŞEKKÜR SİSTEMİ</div></div>
+                        <div class="col-lg-12">
+                            <div class="module-body">
+                                <div class="col-lg-3 col col-md-6 col-xs-6">
+                                    <div>Teşekkürlerin: <span class="bold">123</span></div>
+                                </div>
+                                <div class="col-lg-3 col col col-md-6 col-xs-6">
+                                    <div>Teşekkür Ettiklerim: <span class="bold">123</span></div>
+                                </div>
+                                <div class="col-border-top col-lg-3 col col col-md-6 col-xs-6">
+                                    <div><span class="bold">2452</span> kere teşekkür edildi</div>
+                                </div>
+                                <div class="col-lg-3 col col col-md-6 col-xs-6">
+                                     
+                                    <button data-toggle="modal" data-target=".thanksgiving-popup" class="btn btn-primary open-thanksgiving-module-popup">Teşekkür Et</button>   
+                                </div>
+                            </div>
+                    </div>
+
+                     <!-- Modal -->
+                     <div class="modal fade thanksgiving-popup" tabindex="-1" role="dialog" aria-labelledby="thanksgivingModal">
+                            <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">TEŞEKKÜR SİSTEMİ</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="popup-tab-content">
+                                        <div class="pop-tab-buttons">
+                                            
+                                            <div class="col-lg-6 col-md-6 col-xs-12 col">
+                                                <button data-href="#thanksgiving-inbox" class="popup-tab-button active">
+                                                    <i class="fas fa-heart"></i>&nbsp; &nbsp;
+                                                    <i class="fas fa-arrow-down"></i>&nbsp; &nbsp;
+                                                    Bana Gelenler: <span class="bold">123</span>
+                                                </button>
+                                            </div>
+                                            <div class="col-lg-6 col-md-6 col-xs-12 col">
+                                                <button data-href="#thanksgiving-sent" class="popup-tab-button">
+                                                        <i class="fas fa-heart"></i>&nbsp; &nbsp;
+                                                        <i class="fas fa-arrow-up"></i>&nbsp; &nbsp;
+                                                    Benim Gönderdiklerim: <span class="bold">233</span>
+                                                </button>
+                                            </div>
+                                            
+                                        </div><!--pop-tab-buttons-->
+
+                                        <div class="popup-tab-body">
+                                            <div id="thanksgiving-inbox" class="popup-tab-container">
+                                                
+                                                <ul id="thanksgiving-inbox-item-container" class="item-container">
+                                                    <li class="person-item-list">
+                                                        <div class="pic">
+                                                            <div class="avatar"><img src="images/person.png" alt="person" /></div>
+                                                        </div>
+                                                        <div class="name">Mehmet Yılmaz Üçisim</div>
+                                            
+                                                        <div class="date">17.09.2018 Tarihinde teşekkür etti.</div>
+                                                    </li><!--person-item-list-->
+
+                                                    <li class="person-item-list">
+                                                            <div class="pic">
+                                                                <div class="avatar"><img src="images/person.png" alt="person" /></div>
+                                                            </div>
+                                                            <div class="name">Mehmet Yılmaz Üçisim</div>
+                                                        
+                                                            <div class="date">14.09.2018 Tarihinde teşekkür etti.</div>
+                                                    </li><!--person-item-list-->
+
+                                                    <li class="person-item-list">
+                                                            <div class="pic">
+                                                                <div class="avatar"><img src="images/person.png" alt="person" /></div>
+                                                            </div>
+                                                            <div class="name">Mehmet Yılmaz Üçisim</div>
+                                                        
+                                                            <div class="date">14.09.2018 Tarihinde teşekkür etti.</div>
+                                                    </li><!--person-item-list-->
+
+                                                    <li class="person-item-list">
+                                                        <div class="pic">
+                                                            <div class="avatar"><img src="images/person.png" alt="person" /></div>
+                                                        </div>
+                                                        <div class="name">Mehmet Yılmaz Üçisim</div>
+                                                    
+                                                        <div class="date">14.09.2018 Tarihinde teşekkür etti.</div>
+                                                    </li><!--person-item-list-->
+
+
+                                                </ul><!--item-container-->
+
+                                            
+                                            </div>
+
+                                            <div id="thanksgiving-sent" class="popup-tab-container" style="display:none">
+                                                <ul id="thanksgiving-sent-item-container" class="item-container">
+                                                    <li class="person-item-list">
+                                                        <div class="pic">
+                                                            <div class="avatar"><img src="images/person.png" alt="person" /></div>
+                                                        </div>
+                                                        <div class="name">Mehmet Yılmaz Üçisim</div>
+                                            
+                                                        <div class="date">17.09.2018 Tarihinde teşekkür gönderildi.</div>
+                                                    </li><!--person-item-list-->
+
+                                                    <li class="person-item-list">
+                                                            <div class="pic">
+                                                                <div class="avatar"><img src="images/person.png" alt="person" /></div>
+                                                            </div>
+                                                            <div class="name">Mehmet Yılmaz Üçisim</div>
+                                                        
+                                                            <div class="date">14.09.2018 Tarihinde teşekkür gönderildi.</div>
+                                                    </li><!--person-item-list-->
+
+                                                    <li class="person-item-list">
+                                                            <div class="pic">
+                                                                <div class="avatar"><img src="images/person.png" alt="person" /></div>
+                                                            </div>
+                                                            <div class="name">Mehmet Yılmaz Üçisim</div>
+                                                        
+                                                            <div class="date">14.09.2018 Tarihinde teşekkür gönderildi.</div>
+                                                    </li><!--person-item-list-->
+
+                                                    <li class="person-item-list">
+                                                        <div class="pic">
+                                                            <div class="avatar"><img src="images/person.png" alt="person" /></div>
+                                                        </div>
+                                                        <div class="name">Mehmet Yılmaz Üçisim</div>
+                                                    
+                                                        <div class="date">14.09.2018 Tarihinde teşekkür gönderildi.</div>
+                                                    </li><!--person-item-list-->
+
+
+                                                </ul><!--item-container-->
+                                            </div><!--thanksgiving-sent-->
+                                        </div><!--popup-tab-body-->
+
+                                        <div class="popup-tab-footer">
+
+                                        </div>
+                                    </div><!--popup-tab-content-->
+
+                                    <div class="thanks-giving-form horizontal-form-container">
+                                        <div  class="description">
+                                            Teşekkür etmek istediğiniz kişiyi arama alanından seçiniz. Birden fazla kişi ekleyebilirsiniz.
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="person-select" class="control-label">GÖNDERİECEK KİŞİLER</label>
+                                            <select id="person-select" class="form-control"></select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="control-label">AÇIKLAMA METNİ</label>
+                                            <textarea class="form-control"></textarea>
+                                        </div>
+                                    </div><!--thanks-giving-person-select-->
+                                    
+                                </div><!--modal-body-->
+                                <div class="modal-footer">
+                                
+                                <button type="button" class="btn btn-primary">GÖNDER</button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                </div>
+                <!-- /Thanksgiving Module -->
+
+                <div class="clearfix"></div>
+                <!-- Announcements Title & List icons-->
+                <div class="row home-mobile-nav-title">
+                    <div class="col-xs-6">
+                        <div class="page-title">
+                            Duyurular
+                        </div>
+                    </div>
+                    <div class="col-xs-6 screen text-right">
+                        Görünüm
+                        <a href="javascript:;" class="is-th">
+                            <i class="fal fa-th"></i>
+                        </a>
+                        <a href="javascript:;" class="active is-row">
+                            <i class="fal fa-align-justify"></i>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- Announcements Title & List icons-->
+
+                <!-- Announcements Datas-->
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators none">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                    </ol>
+                    <!-- Wrapper for slides -->
+                    <div class=" is-carousel" role="listbox">
+                        <div class="item active">
+                            <div class="post">
+                                <div class="img">
+                                    <img src="images/placeholder-img-1.jpg" alt="">
+                                </div>
+                                <div class="description">
+                                    <div class="post-title">
+                                        Koç grubu şirketleri haftasonu Antalyada Ultra Maraton Koşuyor!
+                                    </div>
+                                    <div class="post-description">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta dui ut dictum efficitur. Nunc euismod lectus leo…
+                                    </div>
+                                    <div class="date">
+                                        11.07.2018
+                                    </div>
+                                    <div class="more-link">
+                                        <a href="">Devamını oku > </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="post">
+                                <div class="img">
+                                    <img src="images/placeholder-img-2.jpg" alt="">
+                                </div>
+                                <div class="description">
+                                    <div class="post-title">
+                                        Koç grubu şirketleri haftasonu Antalyada Ultra Maraton Koşuyor!
+                                    </div>
+                                    <div class="post-description">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta dui ut dictum efficitur. Nunc euismod lectus leo…
+                                    </div>
+                                    <div class="date">
+                                        11.07.2018
+                                    </div>
+                                    <div class="more-link">
+                                        <a href="">Devamını oku > </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="post">
+                                <div class="img">
+                                    <img src="images/placeholder-img-3.jpg" alt="">
+                                </div>
+                                <div class="description">
+                                    <div class="post-title">
+                                        Koç grubu şirketleri haftasonu Antalyada Ultra Maraton Koşuyor!
+                                    </div>
+                                    <div class="post-description">
+                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla porta dui ut dictum efficitur. Nunc euismod lectus leo…
+                                    </div>
+                                    <div class="date">
+                                        11.07.2018
+                                    </div>
+                                    <div class="more-link">
+                                        <a href="">Devamını oku > </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <!-- Announcements Datas-->
+
+                <!-- Applications & Portals Tab-->
+                <div class="home-tab none">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a data-toggle="tab" href="#apps" style="color: #5371aa">Uygulamalar</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#portals" style="color: #7f06e6">Portallar</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="apps" class="box-menus tab-pane fade in active">
+                            <ul class="" data-title="">
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-plane"></i>
+                                        <span>
+                                            Bireysel Turistik Vize Evrak Formu
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-clock"></i>
+                                        <span>
+                                            Chronos
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-tv"></i>
+                                        <span>
+                                            E-Demirbaş
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-handshake-alt"></i>
+                                        <span>
+                                            BT Yardım Masası KS SM
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-plane"></i>
+                                        <span>
+                                            Bireysel Turistik Vize Evrak Formu
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-clock"></i>
+                                        <span>
+                                            Chronos
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-tv"></i>
+                                        <span>
+                                            E-Demirbaş
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-handshake-alt"></i>
+                                        <span>
+                                            BT Yardım Masası KS SM
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div id="portals" class="box-menus tab-pane fade">
+                            <ul class="purple" data-title="">
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-plane"></i>
+                                        <span>
+                                            Bireysel Turistik Vize Evrak Formu
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-clock"></i>
+                                        <span>
+                                            Chronos
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-tv"></i>
+                                        <span>
+                                            E-Demirbaş
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-handshake-alt"></i>
+                                        <span>
+                                            BT Yardım Masası KS SM
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-plane"></i>
+                                        <span>
+                                            Bireysel Turistik Vize Evrak Formu
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-clock"></i>
+                                        <span>
+                                            Chronos
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-tv"></i>
+                                        <span>
+                                            E-Demirbaş
+                                        </span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="">
+                                        <i class="far fa-handshake-alt"></i>
+                                        <span>
+                                            BT Yardım Masası KS SM
+                                        </span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Applications & Portals Tab-->
+
+                <div class="clearfix"></div>
+                <!--Birthday & lunch-->
+                <div class="row birthday-lunch">
+                    <div class="col-md-4 col-sm-12 col-xs-12 mb-35">
+                        <div class="page-title orange">
+                            Bugün Doğanlar
+                        </div>
+                        <div class="tabbable">
+                            <ul class="left">
+                                <li class="active">
+                                    <a href="#pzt" data-toggle="tab">PZT</a>
+                                </li>
+                                <li>
+                                    <a href="#sal" data-toggle="tab">SAL</a>
+                                </li>
+                                <li>
+                                    <a href="#car" data-toggle="tab">ÇAR</a>
+                                </li>
+                                <li>
+                                    <a href="#per" data-toggle="tab">PER</a>
+                                </li>
+                                <li>
+                                    <a href="#cum" data-toggle="tab">CUM</a>
+                                </li>
+                                <li>
+                                    <a href="#cmt" data-toggle="tab">CMT</a>
+                                </li>
+                                <li>
+                                    <a href="#paz" data-toggle="tab">PAZ</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content isbirthday right">
+                                <div class="tab-pane active" id="pzt">
+                                    <ul>
+                                        <li>
+                                            <div class="img">
+                                                <img src="images/person.png" alt="">
+                                            </div>
+                                            <div class="person-name">
+                                                Mehmet Okan Özcan
+                                            </div>
+                                            <div class="btn-cong">
+                                                <a href="">
+                                                    Tebrik Et
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="img">
+                                                <img src="images/person.png" alt="">
+                                            </div>
+                                            <div class="person-name">
+                                                Mehmet Okan Özcan
+                                            </div>
+                                            <div class="btn-cong">
+                                                <a href="">
+                                                    Tebrik Et
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="img">
+                                                <img src="images/person.png" alt="">
+                                            </div>
+                                            <div class="person-name">
+                                                Mehmet Okan Özcan
+                                            </div>
+                                            <div class="btn-cong">
+                                                <a href="">
+                                                    Tebrik Et
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="img">
+                                                <img src="images/person.png" alt="">
+                                            </div>
+                                            <div class="person-name">
+                                                Mehmet Okan Özcan
+                                            </div>
+                                            <div class="btn-cong">
+                                                <a href="">
+                                                    Tebrik Et
+                                                </a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="img">
+                                                <img src="images/person.png" alt="">
+                                            </div>
+                                            <div class="person-name">
+                                                Mehmet Okan Özcan
+                                            </div>
+                                            <div class="btn-cong">
+                                                <a href="">
+                                                    Tebrik Et
+                                                </a>
+                                            </div>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                                <div class="tab-pane" id="sal">
+                                    ---
+                                </div>
+                                <div class="tab-pane" id="car">
+                                    ---
+                                </div>
+                                <div class="tab-pane" id="per">
+                                    ---
+                                </div>
+                                <div class="tab-pane" id="cum">
+                                    ---
+                                </div>
+                                <div class="tab-pane" id="cmt">
+                                    ---
+                                </div>
+                                <div class="tab-pane" id="paz">
+                                    ---
+                                </div>
+
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="col-md-8 col-sm-12 col-xs-12">
+                        <!--lunch title-->
+                        <div class="page-title black">
+                            Günün Yemeği
+                        </div>
+                        <!--lunch title-->
+
+                        <!--lunch-->
+                        <div class="food vertical">
+                            <div class="row">
+                                <div class="col-xs-4 col">
+                                    <div class="mb-20">
+                                        <div>
+                                            <img class="food-icon" src="/images/soups.svg" alt="">
+                                        </div>
+                                        <p class="brown">
+                                            Şehriyeli Tavuk Çorbası Soğuk Çorba
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <img class="food-icon" src="/images/main-meal.svg" alt="">
+                                        </div>
+                                        <p class="orange">
+                                            Şehriyeli Tavuk Çorbası Soğuk Çorba Dana Nuar Piliç Gordon Bleu Domatesli Bezelye Şehriyeli Pirinç Pilavı
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-xs-4 col">
+                                    <div>
+                                        <img class="food-icon" src="/images/salads.svg" alt="">
+                                    </div>
+                                    <p class="green">
+                                        Göbek Çoban Salata Kırmızı Lahana Havuç Dereotu-Nane-Maydonoz Cacık Roka Salatası Piyaz/Soğan Slt. Semizotu Salatası Hardallı
+                                        Patates
+                                    </p>
+                                </div>
+                                <div class="col-xs-4 col">
+                                    <div>
+                                        <img class="food-icon" src="/images/deserts.svg" alt="">
+                                    </div>
+                                    <p class="black">
+                                        İrmik Helvası Mevsim Meyvesi
+                                    </p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!--lunch-->
+                    </div>
+                </div>
+            </main>
+            <aside class="page-right box-menus">
+                <!--App Title-->
+                <div class="page-title hidden-xs">
+                    Uygulamalar
+                </div>
+                <!--App Title-->
+
+                <!--Aside Applications-->
+                <ul class="applications" data-title="Uygulamalar">
+                    <li>
+                        <a href="">
+                            <i class="far fa-plane"></i>
+                            <span>
+                                Bireysel Turistik Vize Evrak Formu
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-clock"></i>
+                            <span>
+                                Chronos
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-tv"></i>
+                            <span>
+                                E-Demirbaş
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-handshake-alt"></i>
+                            <span>
+                                BT Yardım Masası KS SM
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-plane"></i>
+                            <span>
+                                Bireysel Turistik Vize Evrak Formu
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-clock"></i>
+                            <span>
+                                Chronos
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-tv"></i>
+                            <span>
+                                E-Demirbaş
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-handshake-alt"></i>
+                            <span>
+                                BT Yardım Masası KS SM
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+                <hr class="">
+                <!--Aside Applications-->
+
+                <!--Portal title-->
+                <div class="page-title purple hidden-xs">
+                    Portallar
+                </div>
+                <!--Portal Title-->
+
+                <!--Aside Portals-->
+                <ul class="purple" data-title="Portallar">
+                    <li>
+                        <a href="">
+                            <i class="far fa-plane"></i>
+                            <span>
+                                Bireysel Turistik Vize Evrak Formu
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-clock"></i>
+                            <span>
+                                Chronos
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-tv"></i>
+                            <span>
+                                E-Demirbaş
+                            </span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="far fa-handshake-alt"></i>
+                            <span>
+                                BT Yardım Masası KS SM
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+                <hr class="hidden-xs">
+                <!--Aside Portals-->
+
+                <!--Aside Birthday-->
+                <div class="page-title orange hidden-xs">
+                    Bugün Doğanlar
+                </div>
+                <div class="tabbable hidden-xs">
+                    <ul class="left">
+                        <li class="active">
+                            <a href="#pzt" data-toggle="tab">PZT</a>
+                        </li>
+                        <li>
+                            <a href="#sal" data-toggle="tab">SAL</a>
+                        </li>
+                        <li>
+                            <a href="#car" data-toggle="tab">ÇAR</a>
+                        </li>
+                        <li>
+                            <a href="#per" data-toggle="tab">PER</a>
+                        </li>
+                        <li>
+                            <a href="#cum" data-toggle="tab">CUM</a>
+                        </li>
+                        <li>
+                            <a href="#cmt" data-toggle="tab">CMT</a>
+                        </li>
+                        <li>
+                            <a href="#paz" data-toggle="tab">PAZ</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content isbirthday right">
+                        <div class="tab-pane active" id="pzt">
+                            <ul>
+                                <li>
+                                    <div class="img">
+                                        <img src="images/person.png" alt="">
+                                    </div>
+                                    <div class="person-name">
+                                        Mehmet Okan Özcan
+                                    </div>
+                                    <div class="btn-cong">
+                                        <a href="">
+                                            Tebrik Et
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="img">
+                                        <img src="images/person.png" alt="">
+                                    </div>
+                                    <div class="person-name">
+                                        Mehmet Okan Özcan
+                                    </div>
+                                    <div class="btn-cong">
+                                        <a href="">
+                                            Tebrik Et
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="img">
+                                        <img src="images/person.png" alt="">
+                                    </div>
+                                    <div class="person-name">
+                                        Mehmet Okan Özcan
+                                    </div>
+                                    <div class="btn-cong">
+                                        <a href="">
+                                            Tebrik Et
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="img">
+                                        <img src="images/person.png" alt="">
+                                    </div>
+                                    <div class="person-name">
+                                        Mehmet Okan Özcan
+                                    </div>
+                                    <div class="btn-cong">
+                                        <a href="">
+                                            Tebrik Et
+                                        </a>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="img">
+                                        <img src="images/person.png" alt="">
+                                    </div>
+                                    <div class="person-name">
+                                        Mehmet Okan Özcan
+                                    </div>
+                                    <div class="btn-cong">
+                                        <a href="">
+                                            Tebrik Et
+                                        </a>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="tab-pane" id="sal">
+                            ---
+                        </div>
+                        <div class="tab-pane" id="car">
+                            ---
+                        </div>
+                        <div class="tab-pane" id="per">
+                            ---
+                        </div>
+                        <div class="tab-pane" id="cum">
+                            ---
+                        </div>
+                        <div class="tab-pane" id="cmt">
+                            ---
+                        </div>
+                        <div class="tab-pane" id="paz">
+                            ---
+                        </div>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <hr class="hidden-xs">
+                <!--Aside Birthday-->
+
+                <!--lunch title-->
+                <div class="page-title hidden-xs black">
+                    Günün Yemeği
+                </div>
+                <!--lunch title-->
+
+                <!--lunch-->
+                <div class="food hidden-xs">
+                    <div>
+                        <img class="food-icon smaller" src="/images/soups.svg" alt="">
+                    </div>
+                    <p class="brown">
+                        Şehriyeli Tavuk Çorbası Soğuk Çorba
+                    </p>
+                    <hr>
+                    <div>
+                        <img class="food-icon smaller" src="/images/main-meal.svg" alt="">
+                    </div>
+                    <p class="orange">
+                        Dana Nuar Piliç Gordon Bleu Domatesli Bezelye Şehriyeli Pirinç Pilavı
+                    </p>
+                    <hr>
+                    <div>
+                        <img class="food-icon smaller" src="/images/salads.svg" alt="">
+                    </div>
+                    <p class="green">
+                        Göbek Çoban Salata Kırmızı Lahana Havuç Dereotu-Nane-Maydonoz Cacık Roka Salatası Piyaz/Soğan Slt. Semizotu Salatası Hardallı
+                        Patates
+                    </p>
+                    <hr>
+                    <div>
+                        <img class="food-icon smaller" src="/images/deserts.svg" alt="">
+                    </div>
+                    <p class="black">
+                        İrmik Helvası Mevsim Meyvesi
+                    </p>
+                    <hr>
+                </div>
+                <!--lunch-->
+            </aside>
+            <div class="clearfix"></div>
+        </div>
+    </section>
+    <footer>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-xs-6">
+                    Koç Logo
+                </div>
+                <div class="col-xs-6 text-right">
+                    Copyright 2018 Tüm Hakları Saklıdır.
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

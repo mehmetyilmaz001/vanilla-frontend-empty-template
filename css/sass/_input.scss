@@ -1,0 +1,178 @@
+@import 'mixin';
+
+.alpha-container {
+    position: relative;
+
+
+    .input-group {
+        width: 100%;
+
+        &.data-active {
+            label {
+                &.placeholder-label {
+                    font-size: 10px;
+                    letter-spacing: 0px;
+                    top: 5px;
+                }
+            }
+        }
+
+
+
+        .input-group-btn {
+            fieldset {
+                position: relative;
+                width: 100% !important;
+            }
+
+
+            button {
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 1;
+                color: #555;
+                text-align: center;
+                background-color: rgba(180, 187, 208,.2);
+                border: 1px solid #B4BBD0;
+                @include border-radius(4px);
+                @include border-radius-left(0);
+                border-left:0;
+                height: 50px;
+
+                &:hover, &:focus {
+                    background-color: rgba(180, 187, 208,.3) !important;
+                    border-color: #0091D4;
+                }
+            }
+
+            &.open {
+                button {
+                    background-color: rgba(180, 187, 208,.3) !important;
+                    border-color: #0091D4 !important;
+                    border-left:solid 1px;
+                }
+            }
+        }
+
+        &.error {
+            input {
+                border-color:$color-red;
+                &:focus {
+                    border-color:$color-red;
+                }
+            }
+        }
+
+    }
+
+    label {
+        &.placeholder-label {
+            font-size: 13px;
+            line-height: 13px;
+            font-weight: 400;
+            position: absolute;
+            top:19px;
+            pointer-events:none;
+            left:11px;
+            color:#93a4aa;
+            height: auto;
+            transition:0.2s ease all;
+            -moz-transition:0.2s ease all;
+            -webkit-transition:0.2s ease all;
+            z-index: 1;
+            cursor: text;
+        }
+    }
+
+
+    input {
+        width: 100%;
+        background: white;
+        @include border-radius(3px);
+        cursor: text;
+        letter-spacing: normal;
+        text-align: start;
+        text-indent: 0;
+        text-rendering: optimizelegibility;
+        text-shadow: none;
+        text-transform: none;
+        word-spacing: normal;
+        box-sizing: border-box;
+        border:1px solid #B4BBD0;
+        transition: border 0.25s linear 0s, color 0.25s linear 0s, background-color 0.25s linear 0s;
+        font-size: 15px;
+        line-height: 13px;
+        color:#39495B;
+        position: relative;
+        height: 50px;
+        padding:0 10px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        z-index: 0;
+
+
+
+        &:hover {
+            outline: 0 none;
+            border-color:#9399AC;
+            box-shadow: 0 5px 6px -5px rgba(0, 0, 0, 0.2), 0 7px 5px -7px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 255, 255, 0.2);
+        }
+        &:focus {
+            outline: 0 none;
+            border-color:#0091D4;
+            box-shadow: 0 5px 6px -5px rgba(0, 0, 0, 0.2), 0 7px 5px -7px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(255, 255, 255, 0.2);
+            z-index: 0;
+
+            & ~ label {
+                &.placeholder-label {
+                    font-size: 10px;
+                    letter-spacing: 0px;
+                    top: 5px;
+                }
+            }
+        }
+
+        &:disabled{
+            background: #E9EDF1;
+            box-shadow: none;
+            cursor: not-allowed;
+            pointer-events: none;
+            color:#B4BBD0;
+
+            &:focus {
+                border-color:#E9EDF1;
+                box-shadow: none;
+            }
+        }
+        &:read-only{
+            box-shadow: none;
+            cursor: not-allowed;
+            pointer-events: none;
+
+            &:focus {
+                border-color:#E9EDF1;
+                box-shadow: none;
+            }
+        }
+    }
+
+    .error-container {
+        font-size: 11px;
+        position: absolute;
+        background: white;
+        color:$color-red;
+        transition: 0.3s ease all;
+        height: auto;
+        padding: 2px 5px;
+        z-index: 1;
+        width: auto;
+        text-align: left;
+        top:41px;
+        right:10px;
+        //display: none;
+        @include border-radius(4px);
+
+    }
+
+}

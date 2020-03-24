@@ -1,0 +1,17 @@
+.title {
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 30px;
+
+    &.blue1 {
+        color: $color-blue1;
+    }
+
+    &.gray2 {
+        color: $color-gray2;
+    }
+}
+
+.bold{
+    font-weight: bold;
+}

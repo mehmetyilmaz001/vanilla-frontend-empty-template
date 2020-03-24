@@ -1,0 +1,19 @@
+[
+    {
+        "id":1,
+        "text": "Mehmet Yılmaz",
+        "phone": 5547499489,
+        "pic" : "images/person.png",
+        "dep" : "Bilgi Teknolojileri ve Operasyonu Yönetimi",
+        "title" : "Yazlılm Geliştirme Kıdemli Danışmanı"
+    },
+
+    {
+        "id":2,
+        "text": "Ahmet Yılmaz",
+        "phone": 5493553306,
+        "pic" : "images/person.png",
+        "dep" : "Bilgi Teknolojileri ve Operasyonu Yönetimi",
+        "title" : "Yazlılm Geliştirme Kıdemli Danışmanı"
+    }
+]
